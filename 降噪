@@ -1,1 +1,4 @@
 #先降噪然后转化成指定格式的mp3
+
+
+spleeter separate -p spleeter:2stems -o output audio_example.mp3
