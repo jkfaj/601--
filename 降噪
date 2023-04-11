@@ -28,3 +28,4 @@ for i in os.listdir(to_trans_file):
     subprocess.check_output(code,shell=True)
 # print('pcm格式转换完成')
 print('***转换成声纹识别的mp3***')
+#
