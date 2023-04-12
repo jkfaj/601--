@@ -1,31 +1,26 @@
 #先降噪然后转化成指定格式的mp3
 
 
-spleeter separate -p spleeter:2stems -o output audio_example.mp3
-import os
-noise_file="C:\\Users\\Administrator\\Desktop\\test2\\Re_Noise\\"
-split_file="C:\\Users\\Administrator\\Desktop\\test2\\降噪后\\"
-import subprocess
-for i in os.listdir(noise_file):
-    trans_name=noise_file+i
-    save_name=split_file+os.path.splitext(i)[0]+'.pcm'
-    code='ffmpeg -y -i ' +trans_name+' -acodec pcm_s16le -f s16le -ac 1 -ar 16000 '+save_name
-    subprocess.check_output(code,shell=True)
-# print('pcm格式转换完成')
 
-
-print('***降噪完成***')
 
 
 import os
 to_trans_file="C:\\Users\\Administrator\\Desktop\\test2\\原mp3\\"
 to_save_trans="C:\\Users\\Administrator\\Desktop\\test2\\声纹识别素材\"
 import subprocess
+
+from pydub import AudioSegment
+#song = AudioSegment.from_wav("never_gonna_give_you_up.wav")
+
 for i in os.listdir(to_trans_file):
     trans_name=to_trans_file+i
-    save_name=to_save_trans+os.path.splitext(i)[0]+'.pcm'
-    code='ffmpeg -y -i ' +trans_name+' -acodec pcm_s16le -f s16le -ac 1 -ar 16000 '+save_name
-    subprocess.check_output(code,shell=True)
+    song = AudioSegment.from_mp3(trans_name)
+    if len(song)<=(1024*4):
+        print(len(song))
+
+        save_name=to_save_trans+i
+        code='ffmpeg -y -i ' +trans_name+' -acodec pcm_s16le -f s16le -ac 1 -ar 16000 '+save_name
+        subprocess.check_output(code,shell=True)
 # print('pcm格式转换完成')
 print('***转换成声纹识别的mp3完成***')
 #
