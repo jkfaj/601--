@@ -20,7 +20,7 @@ for i in os.listdir(to_trans_file):
 
         save_name=to_save_trans+i
        # code='ffmpeg -y -i ' +trans_name+' -acodec pcm_s16le -f s16le -ac 1 -ar 16000 '+save_name
-        code='ffmpeg -y -i ' +trans_name+' -ac 1 -ar 16000 '+save_name
+        code='ffmpeg -y -i ' +trans_name+' -acodec libmp3lame -ac 1 -ar 16000 '+save_name
         
         subprocess.check_output(code,shell=True)
 # print('pcm格式转换完成')
