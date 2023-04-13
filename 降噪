@@ -14,15 +14,21 @@ from pydub import AudioSegment
 
 for i in os.listdir(to_trans_file):
     trans_name=to_trans_file+i
-    song = AudioSegment.from_mp3(trans_name)
+    
     if len(song)<=(1024*4):
         print(len(song))
 
         save_name=to_save_trans+i
+        sound = AudioSegment.from_mp3(trans_name)
+
+        #sound = AudioSegment.from_wav(raw_path)
+        sound = sound.set_channels(1)
+        sound.export(save_name, format='mp3', parameters=['-f', 's16le'])
+
        # code='ffmpeg -y -i ' +trans_name+' -acodec pcm_s16le -f s16le -ac 1 -ar 16000 '+save_name
-        code='ffmpeg -y -i ' +trans_name+' -acodec libmp3lame -ac 1 -ar 16000 '+save_name
+       # code='ffmpeg -y -i ' +trans_name+' -acodec libmp3lame -ac 1 -ar 16000 '+save_name
         
-        subprocess.check_output(code,shell=True)
+        #subprocess.check_output(code,shell=True)
 # print('pcm格式转换完成')
 print('***转换成声纹识别的mp3完成***')
 #
